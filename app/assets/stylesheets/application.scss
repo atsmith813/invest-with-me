@@ -16,3 +16,8 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
  @import "devise_bootstrap_views";
+
+#login-body-box {
+	width: 90%;
+	margin: 2em 0;
+}
