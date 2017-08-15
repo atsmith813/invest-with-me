@@ -16,8 +16,14 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
  @import "devise_bootstrap_views";
+ @import "font-awesome";
 
-#login-body-box {
+#login-body-box, 
+#stock-lookup {
 	width: 90%;
-	margin: 2em 0;
+	margin: auto 0;
+}
+
+.results-block {
+	display: inline-block;
 }
