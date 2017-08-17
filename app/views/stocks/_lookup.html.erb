@@ -1,33 +1,31 @@
 <div id="stock-lookup">
-	<div class="col-sm-offset-1"> 
-		<h3>Search for Stocks</h3>
-		<%= form_tag search_stocks_path, remote: true, method: :get, id: "stock-lookup-form" do %>
-			<div class="form-group row no-padding text-center col-md-12">
-				<div class="col-md-10">
-					<%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true,class: 'form-control search-box input-lg' %>
-				</div>
-				<div class="col-md-2">
-					<%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Look up a stock
-					<% end %>
-				</div>
+	<h3>Search for Stocks</h3>
+	<%= form_tag search_stocks_path, remote: true, method: :get, id: "stock-lookup-form" do %>
+		<div class="form-group row no-padding text-center col-md-12">
+			<div class="col-md-10">
+				<%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true,class: 'form-control search-box input-lg' %>
 			</div>
-		<% end %>
-		<%= render 'layouts/spinner' %>
-		<% if @stock %>
-			<div id="stock-lookup-results" class="well results-block">
-				<strong>Symbol:</strong> <%= @stock.ticker %>
-				<strong>Name:</strong> <%= @stock.name %>
-				<strong>Price:</strong> <%= @stock.price %>
-				<% if current_user.stock_already_added?(@stock.ticker) %>
-					<span class="label label-default">
-						Added
-					</span>
-				<% else %>
-					<%= link_to "Add to my stocks", user_stocks_path(user: current_user, stock_ticker: @stock.ticker, stock_id: @stock.id ? @stock.id : ''), class: 'btn btn-xs btn-success', method: :post %>
+			<div class="col-md-2">
+				<%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Look up a stock
 				<% end %>
 			</div>
-		<% end %>
-		<div id="stock-lookup-errors"></div>
-	</div>
+		</div>
+	<% end %>
+	<%= render 'layouts/spinner' %>
+	<% if @stock %>
+		<div id="stock-lookup-results" class="well results-block">
+			<strong>Symbol:</strong> <%= @stock.ticker %>
+			<strong>Name:</strong> <%= @stock.name %>
+			<strong>Price:</strong> <%= @stock.price %>
+			<% if current_user.stock_already_added?(@stock.ticker) %>
+				<span class="label label-default">
+					Added
+				</span>
+			<% else %>
+				<%= link_to "Add to my stocks", user_stocks_path(user: current_user, stock_ticker: @stock.ticker, stock_id: @stock.id ? @stock.id : ''), class: 'btn btn-xs btn-success', method: :post %>
+			<% end %>
+		</div>
+	<% end %>
+	<div id="stock-lookup-errors"></div>
 </div>
