@@ -30,8 +30,8 @@ class UsersController < ApplicationController
 		end
 	end
 
-	def show
+	def show_profile
 		@user = User.find(params[:id])
-		@user_stocks = @user.stocks
+		@user_stocks = @user.user_stocks
 	end
 end

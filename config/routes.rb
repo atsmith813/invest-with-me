@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'friendships/destroy'
 
   resources :user_stocks, except: [:show, :edit, :update]
-  resources :users, only: [:show]
+  get 'show_profile' => 'users#show_profile'
   resources :friendships
   devise_for :users
   get 'welcome/index'
