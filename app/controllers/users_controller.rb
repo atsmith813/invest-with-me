@@ -24,7 +24,8 @@ class UsersController < ApplicationController
 		current_user.friendships.create(friend_id: @friend.id)
 
 		if current_user.save
-			redirect_to my_friends_path, notice: "Friend was successfully added!"
+			flash[:success] = "#{@friend.full_name} is now your friend!"
+			redirect_to my_friends_path
 		else
 			redirect_to my_friends_path, flash[:error] = "There was an error with adding this user as a friend."
 		end

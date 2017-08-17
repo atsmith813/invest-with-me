@@ -41,28 +41,18 @@ class UserStocksController < ApplicationController
       end
     end
 
-    respond_to do |format|
-      if @user_stock.save
-        format.html { redirect_to my_portfolio_path, notice: "Stock #{@user_stock.stock.ticker} was successfully added" }
-        format.json { render :show, status: :created, location: @user_stock }
-      else
-        format.html { render :new }
-        format.json { render json: @user_stock.errors, status: :unprocessable_entity }
-      end
+    if @user_stock.save
+      flash[:success] = "#{@user_stock.stock.name} - #{@user_stock.stock.ticker} was successfully added."
+      redirect_to my_portfolio_path
     end
   end
 
   # PATCH/PUT /user_stocks/1
   # PATCH/PUT /user_stocks/1.json
   def update
-    respond_to do |format|
-      if @user_stock.update(user_stock_params)
-        format.html { redirect_to @user_stock, notice: 'User stock was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user_stock }
-      else
-        format.html { render :edit }
-        format.json { render json: @user_stock.errors, status: :unprocessable_entity }
-      end
+    if @user_stock.update(user_stock_params)
+      flash[:success] = "Stock was successfully updated."
+      redirect_to @user_stock
     end
   end
 
@@ -70,9 +60,9 @@ class UserStocksController < ApplicationController
   # DELETE /user_stocks/1.json
   def destroy
     @user_stock.destroy
-    respond_to do |format|
-      format.html { redirect_to my_portfolio_path, notice: 'User stock was successfully destroyed.' }
-      format.json { head :no_content }
+    if @user_stock.destroy
+      flash[:success] = "#{@user_stock.stock.name} - #{@user_stock.stock.ticker} was deleted."
+      redirect_to my_portfolio_path
     end
   end
 
