@@ -41,8 +41,6 @@ class UserStocksController < ApplicationController
       end
     end
 
-    @user_stock.update_attributes(start_date: params[:start_date], start_price: params[:start_price])
-
     if @user_stock.save
       flash[:success] = "#{@user_stock.stock.name} - #{@user_stock.stock.ticker} was successfully added."
       redirect_to my_portfolio_path
