@@ -3,18 +3,30 @@
 		<tr>
 			<th>Name</th>
 			<th>Symbol</th>
-			<th>Last Price</th>
+			<th>Date Added</th>
+			<th>Start Price</th>
+			<th>Current Price</th>
+			<th>Return</th>
 			<% if @user.id == current_user.id %>
 				<th>Actions</th>
 			<% end %>
 		</tr>
 	</thead>
 	<tbody>
-		<% @user_stocks.each do |user_stock| %>
+		<% @user.user_stocks.each do |user_stock| %>
 			<tr>
-				<td><%= user_stock.name %></td>
-				<td><%= user_stock.ticker %></td>
-				<td><%= user_stock.price %></td>
+				<td><%= user_stock.stock.name %></td>
+				<td><%= user_stock.stock.ticker %></td>
+				<td><%= user_stock.start_date.strftime("%m/%d/%Y") %>
+				<td><%= "$#{user_stock.start_price}" %></td>
+				<td><%= user_stock.stock.display_price %></td>
+				<% if user_stock.stock_return >= 0.01 %>
+					<td class="perf gain"><i class="fa fa-chevron-up" aria-hidden="true"></i><%= user_stock.display_stock_return %></td>
+				<% elsif user_stock.stock_return <= -0.01%>
+					<td class="perf loss"><i class="fa fa-chevron-down" aria-hidden="true"></i><%= user_stock.display_stock_return %></td>
+				<% else %>
+					<td class="perf">0.00%</td>
+				<% end %>
 				<% if @user.id == current_user.id %>
 					<td>
 						<%=	 link_to "Delete", user_stock_path(user_stock), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-xs btn-danger" %>

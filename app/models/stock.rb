@@ -17,11 +17,14 @@ class Stock < ApplicationRecord
   end
 
   def price
-	  closing_price = StockQuote::Stock.quote(ticker).close
-	  return "$#{closing_price} (Closing)" if closing_price
+    price = StockQuote::Stock.quote(ticker).close
+    if price.blank?
+      price = StockQuote::Stock.quote(ticker).open
+    end
+  end
 
-	  opening_price = StockQuote::Stock.quote(ticker).open
-	  return "$#{opening_price} (Opening)" if opening_price
+  def display_price
+	  return "$#{price}" if price
 	  'Unavailable'
   end
 end
