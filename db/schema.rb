@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816233151) do
+ActiveRecord::Schema.define(version: 20170823010319) do
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "user_id"
@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(version: 20170816233151) do
   create_table "user_stocks", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "stock_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "start_date"
+    t.decimal  "start_price"
   end
 
   create_table "users", force: :cascade do |t|

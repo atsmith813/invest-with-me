@@ -25,21 +25,23 @@ class UserStocksController < ApplicationController
   # POST /user_stocks.json
   def create
     if params[:stock_id].present?
-      @user_stock = UserStock.create(stock_id: params[:stock_id], user: current_user)
+      @user_stock = UserStock.create(stock_id: params[:stock_id], user: current_user, start_date: params[:start_date], start_price: params[:start_price])
     else
       stock = Stock.find_by_ticker(params[:stock_ticker])
       if stock
-        @user_stock = UserStock.create(stock: stock, user: current_user)
+        @user_stock = UserStock.create(stock_id: stock, user: current_user, start_date: params[:start_date], start_price: params[:start_price])
       else
         stock = Stock.new_from_lookup(params[:stock_ticker])
           if stock.save
-            @user_stock = UserStock.create(user: current_user, stock: stock)
+            @user_stock = UserStock.create(user: current_user, stock_id: stock, start_date: params[:start_date], start_price: params[:start_price])
           else
             @user_stock = nil
             flash[:error] = "Stock is not available."
           end
       end
     end
+
+    @user_stock.update_attributes(start_date: params[:start_date], start_price: params[:start_price])
 
     if @user_stock.save
       flash[:success] = "#{@user_stock.stock.name} - #{@user_stock.stock.ticker} was successfully added."
@@ -74,6 +76,6 @@ class UserStocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_stock_params
-      params.require(:user_stock).permit(:user_id, :stock_id)
+      params.require(:user_stock).permit(:user_id, :stock_id, :start_date, :start_price)
     end
 end
