@@ -1,24 +1,13 @@
-# README
+# Invest With Friends
+This is my second Ruby on Rails project. It is a simple stock-tracking/social
+media application. You can build a watch list for various stocks, follow your
+friends, and see their stocks as well.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Concepts/tools/lessons
+Building on my first project, [alpha blog](https://github.com/atsmith813/alpha-blog "alpha blog" )
+* Ajax
+* Devise (finally, after doing it manually on the Alpha Blog I REALLY appreciate this)
+* jQuery
+* Simple search
+* Flash displays
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
